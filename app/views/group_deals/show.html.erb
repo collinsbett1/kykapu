@@ -1,0 +1,26 @@
+<section class="hero">
+  <%= link_to "Back to product", product_path(@group_deal.product, as_user_id: current_user.id) %>
+</section>
+
+<%= turbo_stream_from [@group_deal.product, :group_deals] %>
+<%= turbo_stream_from [@group_deal, :summary] %>
+<%= turbo_stream_from [@group_deal, :participants] %>
+
+<%= render "summary", group_deal: @group_deal %>
+
+<section class="card">
+  <h3>Invite link</h3>
+  <div data-controller="clipboard">
+    <input class="share-box" value="<%= group_deal_url(@group_deal, as_user_id: current_user.id) %>" readonly data-clipboard-target="source" onclick="this.select();">
+    <div class="share-actions">
+      <button type="button" class="btn btn--accent" data-action="clipboard#copy">Copy link</button>
+      <span class="copy-toast" data-clipboard-target="toast" aria-live="polite"></span>
+    </div>
+  </div>
+  <p class="meta">Share this URL to let friends join before the countdown ends.</p>
+  <% if @group_deal.forming? %>
+    <%= button_to "Join this group", join_group_deal_path(@group_deal, as_user_id: current_user.id), method: :post, class: "btn btn--accent" %>
+  <% end %>
+</section>
+
+<%= render "participants", group_deal: @group_deal %>

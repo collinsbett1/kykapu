@@ -1,0 +1,285 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+:root {
+  --bg-1: #f7f3ea;
+  --bg-2: #fffdfa;
+  --ink: #19202c;
+  --ink-soft: #4b5465;
+  --line: #d9cdb5;
+  --accent: #ed6a5a;
+  --accent-deep: #ca5243;
+  --ok: #2f855a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  background: radial-gradient(circle at 15% 15%, #ffe9cc, transparent 40%),
+    radial-gradient(circle at 85% 0%, #fce2dd, transparent 30%),
+    linear-gradient(170deg, var(--bg-1), var(--bg-2));
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, #fff 85%, transparent);
+  backdrop-filter: blur(5px);
+}
+
+.brand-link {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.topbar__user {
+  text-align: right;
+}
+
+.user-pill {
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.user-switcher {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.user-switcher__link {
+  text-decoration: none;
+  font-size: 0.75rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+}
+
+.user-switcher__link.is-active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.flash-wrap {
+  max-width: 1080px;
+  margin: 0.8rem auto 0;
+  padding: 0 1rem;
+}
+
+.flash {
+  margin: 0;
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.5rem;
+}
+
+.flash--notice {
+  background: #d9f2e5;
+  border: 1px solid #aadabf;
+}
+
+.flash--alert {
+  background: #ffe0db;
+  border: 1px solid #efb6ad;
+}
+
+.page {
+  max-width: 1080px;
+  margin: 1rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.hero {
+  margin-bottom: 1rem;
+}
+
+.hero h1,
+.hero h2 {
+  margin: 0 0 0.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(25, 32, 44, 0.07);
+}
+
+.product-card h3 {
+  margin: 0;
+}
+
+.price-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  margin: 0.65rem 0;
+}
+
+.price-solo {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+.price-group {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: var(--ink);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn--accent {
+  background: var(--accent);
+}
+
+.btn--accent:hover {
+  background: var(--accent-deep);
+}
+
+.deal-card {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.status-pill {
+  display: inline-block;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+}
+
+.status-pill--forming {
+  background: #ffeac8;
+}
+
+.status-pill--successful {
+  background: #cef0d6;
+  color: var(--ok);
+}
+
+.status-pill--failed,
+.status-pill--expired {
+  background: #f8dbd8;
+}
+
+.countdown {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.95rem;
+}
+
+.share-box {
+  width: 100%;
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  padding: 0.45rem 0.5rem;
+  background: #fff;
+}
+
+.share-actions {
+  margin-top: 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.copy-toast {
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  font-size: 0.82rem;
+  color: var(--ok);
+}
+
+.copy-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.participants {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.participants li {
+  list-style: none;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .topbar__user {
+    text-align: left;
+  }
+
+  .user-switcher {
+    justify-content: flex-start;
+  }
+}

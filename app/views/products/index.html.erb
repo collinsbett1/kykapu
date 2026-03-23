@@ -1,0 +1,22 @@
+<section class="hero">
+  <h1>Group Buy Deals</h1>
+  <p>Pick a product, start a group, and unlock lower pricing when enough people join before the timer ends.</p>
+</section>
+
+<section class="grid">
+  <% @products.each do |product| %>
+    <article class="card product-card">
+      <h3><%= link_to product.title, product_path(product, as_user_id: current_user.id) %></h3>
+      <p class="meta"><%= truncate(product.description.to_s, length: 110) %></p>
+      <div class="price-row">
+        <span class="price-solo">$<%= format("%.2f", product.solo_price_cents / 100.0) %></span>
+        <span class="price-group">$<%= format("%.2f", product.group_price_cents / 100.0) %> group</span>
+      </div>
+      <p class="meta">Min buyers: <%= product.min_group_size %> | Window: <%= product.group_window_minutes %> min</p>
+      <p class="meta">Stock left: <%= product.inventory_count %></p>
+      <%= link_to "View live groups", product_path(product, as_user_id: current_user.id), class: "btn btn--accent" %>
+    </article>
+  <% end %>
+</section>
+
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

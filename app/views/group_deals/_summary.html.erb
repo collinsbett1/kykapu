@@ -1,0 +1,15 @@
+<section id="<%= dom_id(group_deal, :summary) %>" class="card">
+  <h2>Deal #<%= group_deal.id %> for <%= group_deal.product.title %></h2>
+  <p>
+    <span class="status-pill status-pill--<%= group_deal.status %>"><%= group_deal.status.upcase %></span>
+  </p>
+  <p class="meta">
+    Price locked: $<%= format("%.2f", group_deal.locked_price_cents / 100.0) %> |
+    Progress: <strong><%= group_deal.group_participants.count %> / <%= group_deal.target_size %></strong>
+  </p>
+  <p class="countdown"
+     data-controller="countdown"
+     data-countdown-expires-at-value="<%= group_deal.expires_at.iso8601 %>">
+    <span data-countdown-target="display">--:--</span>
+  </p>
+</section>

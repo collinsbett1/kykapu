@@ -1,0 +1,23 @@
+<section class="hero">
+  <h2><%= @product.title %></h2>
+  <p><%= @product.description %></p>
+  <div class="price-row">
+    <span class="price-solo">$<%= format("%.2f", @product.solo_price_cents / 100.0) %></span>
+    <span class="price-group">$<%= format("%.2f", @product.group_price_cents / 100.0) %> group price</span>
+  </div>
+  <p class="meta">
+    Target buyers: <%= @product.min_group_size %> |
+    Time window: <%= @product.group_window_minutes %> minutes |
+    Inventory: <%= @product.inventory_count %>
+  </p>
+
+  <%= button_to "Start a Group", group_deals_path(as_user_id: current_user.id), method: :post, params: { product_id: @product.id }, class: "btn btn--accent" %>
+</section>
+
+<section>
+  <h3>Live Group Deals</h3>
+  <%= turbo_stream_from [@product, :group_deals] %>
+  <div id="<%= "product_#{@product.id}_group_deals" %>" class="grid">
+    <%= render partial: "group_deals/card", collection: @active_group_deals, as: :group_deal %>
+  </div>
+</section>

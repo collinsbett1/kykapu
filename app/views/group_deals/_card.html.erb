@@ -1,0 +1,20 @@
+<article id="<%= dom_id(group_deal, :card) %>" class="card deal-card">
+  <div>
+    <span class="status-pill status-pill--<%= group_deal.status %>"><%= group_deal.status.upcase %></span>
+  </div>
+  <strong>Deal #<%= group_deal.id %></strong>
+  <p class="meta">
+    <%= group_deal.group_participants.count %> / <%= group_deal.target_size %> buyers joined
+  </p>
+  <p class="countdown"
+     data-controller="countdown"
+     data-countdown-expires-at-value="<%= group_deal.expires_at.iso8601 %>">
+    <span data-countdown-target="display">--:--</span>
+  </p>
+  <div>
+    <%= link_to "Open deal", group_deal_path(group_deal), class: "btn" %>
+    <% if group_deal.forming? %>
+      <%= button_to "Join", join_group_deal_path(group_deal), method: :post, class: "btn btn--accent" %>
+    <% end %>
+  </div>
+</article>
