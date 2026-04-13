@@ -202,6 +202,7 @@ GEM
     nokogiri (1.19.1-x86_64-linux-musl)
       racc (~> 1.4)
     ostruct (0.6.3)
+    pagy (9.4.0)
     parallel (1.27.0)
     parser (3.3.10.2)
       ast (~> 2.4.1)
@@ -218,7 +219,7 @@ GEM
       date
       stringio
     public_suffix (7.0.2)
-    puma (7.2.0)
+    puma (8.0.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -392,6 +393,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  pagy (~> 9.0)
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.2)
