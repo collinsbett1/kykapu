@@ -1,0 +1,31 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+#
+# IMPORTANT: Before deploying, set the RAILS_MASTER_KEY environment variable
+# in the Render dashboard (Dashboard → Service → Environment).
+# Get the value from config/master.key (never commit this file).
+#
+# NOTE: The disk (required for SQLite persistence) is only available on the
+# Starter plan ($7/month) or higher. Data is lost on restarts without it.
+
+services:
+  - type: web
+    name: kykapu
+    runtime: docker
+    region: oregon
+    plan: starter
+    healthCheckPath: /up
+    disk:
+      name: kykapu-storage
+      mountPath: /rails/storage
+      sizeGB: 1
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: SOLID_QUEUE_IN_PUMA
+        value: "true"
+      - key: RAILS_ASSUME_SSL
+        value: "true"
+      - key: RAILS_FORCE_SSL
+        value: "true"
