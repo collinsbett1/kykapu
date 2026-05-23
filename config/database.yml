@@ -1,16 +1,15 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
+# SQLite for development and test; PostgreSQL for production.
 #
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
+# Production uses a single PostgreSQL database (DATABASE_URL) shared across
+# all Solid components (cache, queue, cable) to stay within Render's free tier.
+
 default: &default
-  adapter: sqlite3
-  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
+  adapter: sqlite3
+  timeout: 5000
   database: storage/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
@@ -18,23 +17,24 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  adapter: sqlite3
+  timeout: 5000
   database: storage/test.sqlite3
 
-# Store production database in the storage/ directory, which by default
-# is mounted as a persistent Docker volume in config/deploy.yml.
+# All production databases point to the same PostgreSQL instance (DATABASE_URL).
+# Solid Cache, Queue, and Cable migrations run on the same database via their
+# respective migrations_paths.
 production:
-  primary:
+  primary: &production_primary
     <<: *default
-    database: storage/production.sqlite3
+    adapter: postgresql
+    url: <%= ENV["DATABASE_URL"] %>
   cache:
-    <<: *default
-    database: storage/production_cache.sqlite3
+    <<: *production_primary
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
-    database: storage/production_queue.sqlite3
+    <<: *production_primary
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
-    database: storage/production_cable.sqlite3
+    <<: *production_primary
     migrations_paths: db/cable_migrate

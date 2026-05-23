@@ -3,22 +3,25 @@
 # IMPORTANT: Before deploying, set the RAILS_MASTER_KEY environment variable
 # in the Render dashboard (Dashboard → Service → Environment).
 # Get the value from config/master.key (never commit this file).
-#
-# NOTE: The disk (required for SQLite persistence) is only available on the
-# Starter plan ($7/month) or higher. Data is lost on restarts without it.
+
+databases:
+  - name: kykapu-db
+    databaseName: kykapu
+    plan: free
+    region: oregon
 
 services:
   - type: web
     name: kykapu
     runtime: docker
     region: oregon
-    plan: starter
+    plan: free
     healthCheckPath: /up
-    disk:
-      name: kykapu-storage
-      mountPath: /rails/storage
-      sizeGB: 1
     envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kykapu-db
+          property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
       - key: RAILS_ENV
